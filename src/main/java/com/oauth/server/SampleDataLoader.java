@@ -23,8 +23,7 @@ public class SampleDataLoader {
     private PasswordEncoder passwordEncoder;
 
     public void loadSampleData() {
-        OAuthClientDetails testAlexaClient =
-            OAuthClientDetails.builder()
+        OAuthClientDetails testAlexaClient = OAuthClientDetails.builder()
                 .clientId("test_alexa_client")
                 .clientSecret(passwordEncoder.encode("test_client_secret"))
                 .scopes("profile")
@@ -34,8 +33,7 @@ public class SampleDataLoader {
                 .authorizedGrantTypes("implicit,authorization_code,refresh_token")
                 .build();
 
-        OAuthClientDetails adminClient =
-            OAuthClientDetails.builder()
+        OAuthClientDetails adminClient = OAuthClientDetails.builder()
                 .clientId("test_admin_client")
                 .clientSecret(passwordEncoder.encode("test_client_secret"))
                 .scopes("test_scope")
@@ -46,8 +44,7 @@ public class SampleDataLoader {
                 .authorizedGrantTypes("client_credentials,implicit,authorization_code,password,refresh_token")
                 .build();
 
-        OAuthPartner testAlexaPartner =
-            OAuthPartner.builder()
+        OAuthPartner testAlexaPartner = OAuthPartner.builder()
                 .partnerId("test_alexa_client")
                 .clientId("amzn1.application-oa2-client.0897266ee6fb480ead86d615e2653558")
                 .clientSecret("8241c286e8eb9c9741ce5b9e009c892f0bd4d603b21e51dc37efb5981245191a")
@@ -57,7 +54,16 @@ public class SampleDataLoader {
                 .preEstablishedRedirectUri("")
                 .build();
 
-        dynamoDBMapper.batchSave(
-            ImmutableList.of(testAlexaClient, adminClient, testAlexaPartner));
+        OAuthPartner testDiyAlexaPartner = OAuthPartner.builder()
+                .partnerId("test_diy_alexa_client")
+                .clientId("amzn1.application-oa2-client.98a19109eba94e3c9f97389a83e94775")
+                .clientSecret("e047cf0f7836f0bc2354c47af9faf23e5c86822952f847ee6b8b0643e8babfed")
+                .scopes("alexa::diy:profile")
+                .accessTokenUri("https://api.amazon.com/auth/o2/token")
+                .userAuthorizationUri("https://www.amazon.com/ap/oa")
+                .preEstablishedRedirectUri("")
+                .build();
+
+        dynamoDBMapper.batchSave(ImmutableList.of(testAlexaClient, adminClient, testAlexaPartner, testDiyAlexaPartner));
     }
 }

@@ -11,20 +11,16 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig.SaveBehavior;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.oauth.server.dto.OAuthClientDetails;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.*;
+import org.springframework.util.StringUtils;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.ClientAlreadyExistsException;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.ClientRegistrationException;
-import org.springframework.security.oauth2.provider.ClientRegistrationService;
-import org.springframework.security.oauth2.provider.NoSuchClientException;
-import org.springframework.util.StringUtils;
 
 /**
  * A DAO to access {@link ClientDetails} in DynamoDB.
@@ -32,7 +28,7 @@ import org.springframework.util.StringUtils;
  * @author Lucun Cai
  */
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public class DynamoDBClientDetailsDAO implements ClientDetailsService, ClientRegistrationService {
 
     private final DynamoDBMapper dynamoDBMapper;

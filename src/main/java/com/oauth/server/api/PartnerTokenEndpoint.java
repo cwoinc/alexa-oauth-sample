@@ -6,11 +6,10 @@
 
 package com.oauth.server.api;
 
-import com.oauth.server.dao.DynamoDBPartnerTokenDAO;
-import com.oauth.server.dto.OAuthPartner;
 import com.oauth.server.authentication.UserIDAuthenticationToken;
 import com.oauth.server.dao.DynamoDBPartnerDetailsDAO;
-import java.util.Map;
+import com.oauth.server.dao.DynamoDBPartnerTokenDAO;
+import com.oauth.server.dto.OAuthPartner;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
@@ -23,6 +22,8 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * Rest Controller for partner token endpoint.
@@ -59,7 +60,7 @@ public class PartnerTokenEndpoint {
         OAuth2ProtectedResourceDetails resourceDetails = partner.toProtectedResourceDetails();
 
         OAuth2AccessToken accessToken = partnerTokenService.getAccessToken(resourceDetails,
-            new UserIDAuthenticationToken(userID));
+                new UserIDAuthenticationToken(userID));
 
         if (accessToken == null) {
             throw new OAuth2Exception("No token found for user: " + userID);
@@ -84,7 +85,7 @@ public class PartnerTokenEndpoint {
         tokenProvider.setStateMandatory(false);
 
         return tokenProvider.refreshAccessToken(resourceDetails,
-            accessToken.getRefreshToken(), AccessTokenRequest);
+                accessToken.getRefreshToken(), AccessTokenRequest);
     }
 
 }

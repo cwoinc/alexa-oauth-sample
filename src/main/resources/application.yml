@@ -1,5 +1,10 @@
 server:
   port: 5000
+  ssl:
+    key-alias: 202012222_cert
+    key-store: classpath:202012222_server.keystore
+    key-store-password: Wantdo.123
+    key-store-type: JKS
   tomcat:
     use-relative-redirects: true
 

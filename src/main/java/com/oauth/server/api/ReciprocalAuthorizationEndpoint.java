@@ -5,10 +5,9 @@
  */
 package com.oauth.server.api;
 
+import com.oauth.server.dao.DynamoDBPartnerDetailsDAO;
 import com.oauth.server.dao.DynamoDBPartnerTokenDAO;
 import com.oauth.server.dto.OAuthPartner;
-import com.oauth.server.dao.DynamoDBPartnerDetailsDAO;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,11 +19,9 @@ import org.springframework.security.oauth2.client.token.grant.code.Authorization
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * Rest Controller for reciprocal authorization endpoint.
@@ -74,7 +71,7 @@ public class ReciprocalAuthorizationEndpoint {
         tokenProvider.setStateMandatory(false);
 
         OAuth2AccessToken accessToken = tokenProvider.obtainAccessToken(resourceDetails,
-            createAccessTokenRequest(authorizationCode));
+                createAccessTokenRequest(authorizationCode));
 
         partnerTokenRepository.saveAccessToken(resourceDetails, auth, accessToken);
     }

@@ -8,16 +8,17 @@ package com.oauth.server.dao;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.oauth.server.dto.OAuthPartner;
-import java.util.List;
 import lombok.NonNull;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 /**
  * A DAO to access {@link OAuthPartner} in DynamoDB.
  *
  * @author Lucun Cai
  */
-@Log4j2
+@Slf4j
 public class DynamoDBPartnerDetailsDAO {
 
     private DynamoDBMapper dynamoDBMapper;
